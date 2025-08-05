@@ -1,7 +1,11 @@
+import Head from "./components/Head";
+import Body from "./components/Body";
+
 function App() {
   return (
     <>
-      <h1 className="font-bold text-red-800">Hello Niraj</h1>
+      <Head />
+      <Body />
     </>
   );
 }
