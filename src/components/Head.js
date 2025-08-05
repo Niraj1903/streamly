@@ -2,13 +2,22 @@ import React from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { toggleMenu } from "../utils/appSlice";
 
 const Head = () => {
+  const dispatch = useDispatch();
+  const toggleMenuHandler = () => {
+    dispatch(toggleMenu());
+  };
   return (
     <>
       <div className="grid grid-flow-col shadow-lg p-5">
         <div className="flex pl-2 pt-2 col-span-1">
-          <GiHamburgerMenu />
+          <GiHamburgerMenu
+            className="cursor-pointer"
+            onClick={toggleMenuHandler}
+          />
           <img
             className="w-8 -mt-4 mr-4 pt-2 pl-2"
             src="/streamlyLogo.svg"
