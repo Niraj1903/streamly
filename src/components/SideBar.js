@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
   const isMenuOpen = useSelector((item) => item.app.isMenuOpen);
@@ -7,7 +8,10 @@ const SideBar = () => {
     <>
       <div className="shadow-xl w-48">
         <ul className="">
-          <li className="">Home</li>
+          <NavLink to="/">
+            <li className="">Home</li>
+          </NavLink>
+
           <li className="">Sports</li>
           <li className="">Video</li>
           <li className="">Live</li>

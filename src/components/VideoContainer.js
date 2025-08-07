@@ -1,5 +1,6 @@
 import VideoCard from "./VideoCard";
 import useVideoContainer from "../utils/useVideoContainer";
+import { NavLink } from "react-router-dom";
 
 const VideoContainer = () => {
   const videos = useVideoContainer();
@@ -7,7 +8,9 @@ const VideoContainer = () => {
     <>
       <div className="flex flex-wrap">
         {videos.map((item) => (
-          <VideoCard key={videos.id} info={item} />
+          <NavLink to={"/watch?v=" + item.id} key={item.id}>
+            <VideoCard info={item} />
+          </NavLink>
         ))}
       </div>
     </>

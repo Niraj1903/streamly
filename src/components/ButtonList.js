@@ -21,7 +21,7 @@ const ButtonList = () => {
     <>
       <div className="flex">
         {list.map((item) => (
-          <Button key={item.name} name={item} />
+          <Button key={item} name={item} />
         ))}
       </div>
     </>
