@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
@@ -6,10 +6,16 @@ import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 
 const Head = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
+  const handleSearchQuery = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  console.log(searchQuery);
   return (
     <>
       <div className="grid grid-flow-col shadow-lg p-5">
@@ -29,6 +35,8 @@ const Head = () => {
             className="w-6/12 border border-gray-400 rounded-l-full px-2"
             type="text"
             placeholder="Search"
+            value={searchQuery}
+            onChange={handleSearchQuery}
           />
           <button className="border border-gray-400 rounded-r-full px-2 bg-gray-300">
             <IoIosSearch />
