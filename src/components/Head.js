@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
+import { YOUTUBE_SEARCH_SUGGESTION_API } from "../utils/contants";
+import { cacheResults } from "../utils/searchSlice";
 
 const Head = () => {
+  const cache = useSelector((store) => store.search);
+  const [showSuggestion, setShowSuggestion] = useState(false);
+  const [suggestion, setSuggestion] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const dispatch = useDispatch();
   const toggleMenuHandler = () => {
@@ -15,7 +20,25 @@ const Head = () => {
     setSearchQuery(e.target.value);
   };
 
-  console.log(searchQuery);
+  const getSearchSuggestion = async () => {
+    const data = await fetch(YOUTUBE_SEARCH_SUGGESTION_API + searchQuery);
+    const json = await data.json();
+    setSuggestion(json[1]);
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (cache) {
+        setSuggestion(json[1]);
+      } else {
+        getSearchSuggestion();
+      }
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchQuery]);
+
   return (
     <>
       <div className="grid grid-flow-col shadow-lg p-5">
@@ -37,10 +60,28 @@ const Head = () => {
             placeholder="Search"
             value={searchQuery}
             onChange={handleSearchQuery}
+            onFocus={() => setShowSuggestion(true)}
+            onBlur={() => setShowSuggestion(false)}
           />
           <button className="border border-gray-400 rounded-r-full px-2 bg-gray-300">
             <IoIosSearch />
           </button>
+
+          {showSuggestion && (
+            <div className="bg-white fixed shadow-lg rounded-md my-[25.5px] px-5 w-[37rem] border border-gray-100">
+              <ul>
+                {suggestion.map((s, index) => (
+                  <li
+                    key={index}
+                    className="flex py-2 shadow-sm hover:bg-gray-200"
+                  >
+                    <IoIosSearch className="mt-[6px] mr-[10px] hover:bg-gray-50" />
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
         <div className="flex col-span-1">
           <FaUserCircle className="h-8 w-14" />
