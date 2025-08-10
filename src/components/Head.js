@@ -24,12 +24,13 @@ const Head = () => {
     const data = await fetch(YOUTUBE_SEARCH_SUGGESTION_API + searchQuery);
     const json = await data.json();
     setSuggestion(json[1]);
+    dispatch(cacheResults({ [searchQuery]: json[1] }));
   };
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (cache) {
-        setSuggestion(json[1]);
+      if (cache[searchQuery]) {
+        setSuggestion(cache[searchQuery]);
       } else {
         getSearchSuggestion();
       }
