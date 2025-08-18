@@ -11,6 +11,7 @@ const useVideoContainer = () => {
 
   useEffect(() => {
     getVideos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return videos;
 };
