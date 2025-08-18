@@ -1,8 +1,8 @@
 const VideoCard = ({ info }) => {
   if (!info) return null; //early return
   const { snippet, statistics } = info;
-  const { channelTitle, thumbnails, title } = snippet;
-  const { commentCount, favoriteCount, likeCount, viewCount } = statistics;
+  const { thumbnails, title } = snippet;
+  const { likeCount } = statistics;
   return (
     <>
       <div className="m-2 w-72 shadow-lg rounded-lg">
