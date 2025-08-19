@@ -8,7 +8,7 @@ const list = [
   "Music",
   "Mixes",
   "Watched",
-  "New to You",
+  "New",
   "Films",
   "Guitar",
   "Presentation",
